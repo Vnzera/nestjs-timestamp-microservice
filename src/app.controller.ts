@@ -11,7 +11,7 @@ export class AppController {
   }
 
   @Get('/:DATE_STRING')
-  getHello(@Param('DATE_STRING') DATE_STRING: string) {
+  getTimestamp(@Param('DATE_STRING') DATE_STRING: string) {
     // new Date returns a date object which contains a number
     const timestamp = new Date(DATE_STRING);
 
@@ -24,7 +24,13 @@ export class AppController {
       return { error: 'Invalid Date' };
     }
 
-    return timestamp;
+    const unixStamp = timestamp.getTime();
+    const utcStamp = timestamp.toUTCString();
+
+    return {
+      unix: unixStamp,
+      utc: utcStamp,
+    };
 
   }
 
